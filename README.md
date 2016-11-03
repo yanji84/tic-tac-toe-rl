@@ -10,10 +10,10 @@ A simple feedforward two hidden layer network
 
 # Reward Structure:
 
-Won: 100
-Draw: 10
-Lost: -1
-Cheating (placing a move on a taken spot): -10
+- Won: 100
+- Draw: 10
+- Lost: -1
+- Cheating (placing a move on a taken spot): -10
 
 Future rewards are discounted
 
@@ -29,5 +29,3 @@ Future rewards are discounted
 The following shows the average reward from last 100 games that have been played. Orange is when the agent plays against a random player. Yellow is when the agent plays against a near-optimal strategy player. In both cases, the agent always makes the first move
 
 ![Alt text](/screenshots/game_reward.png?raw=true&style=centerme "Experiments")
-
-
