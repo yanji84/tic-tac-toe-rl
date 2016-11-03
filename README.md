@@ -26,6 +26,6 @@ Future rewards are discounted
 
 # Experiments
 
-The following shows the average reward from last 100 games that have been played. Orange is when the agent plays against a random player. Yellow is when the agent plays against a near-optimal strategy player. In both cases, the agent always makes the first move
+The following shows the average reward from last 100 games that have been played over a training period of about 180k games. Orange is when the agent plays against a random player. Yellow is when the agent plays against a near-optimal strategy player. In both cases, the agent always makes the first move
 
 ![Alt text](/screenshots/game_reward.png?raw=true&style=centerme "Experiments")
