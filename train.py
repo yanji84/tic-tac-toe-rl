@@ -44,15 +44,15 @@ def value_network(states):
   return p
 
 summaries = tf.merge_all_summaries()
-q_network = NeuralQLearner(sess,
-                           optimizer,
-                           value_network,
-                           state_dim,
-                           num_actions,
-                           init_exp=0.6,         # initial exploration prob
-                           final_exp=0.1,        # final exploration prob
-                           anneal_steps=120000,  # N steps for annealing exploration
-                           discount_factor=0.8)  # no need for discounting
+q_network = DeepQNetwork(sess,
+                         optimizer,
+                         value_network,
+                         state_dim,
+                         num_actions,
+                         init_exp=0.6,         # initial exploration prob
+                         final_exp=0.1,        # final exploration prob
+                         anneal_steps=120000,  # N steps for annealing exploration
+                         discount_factor=0.8)  # no need for discounting
 
 # load checkpoint if there is any
 saver = tf.train.Saver()

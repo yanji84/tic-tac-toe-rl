@@ -24,6 +24,8 @@ class DeepQNetwork(object):
                      summary_writer=None,
                      summary_every=100):
 
+    self.summary_every = 1
+
     # tensorflow machinery
     self.session        = session
     self.optimizer      = optimizer
