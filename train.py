@@ -67,6 +67,11 @@ training_episodes = 200000
 # store episodes history
 episode_history = deque(maxlen=100)
 
+lost = 0
+draw = 0
+won = 0
+cheated = 0
+
 # start training
 reward = 0.0
 for i_episode in xrange(training_episodes):
@@ -78,6 +83,14 @@ for i_episode in xrange(training_episodes):
     q_network.updateModel()
     state = np.array(next_state)
     if done:
+      if reward == -10:
+        cheated += 1
+      elif reward == -1:
+        lost += 1
+      elif reward == 100:
+        won += 1
+      elif reward == 10:
+        draw += 1
       episode_history.append(reward)
       break
 
@@ -87,9 +100,19 @@ for i_episode in xrange(training_episodes):
     print("Episode {}".format(i_episode))
     print("Reward for this episode: {}".format(reward))
     print("Average reward for last 100 episodes: {}".format(mean_rewards))
+    print("cheated:" + str(cheated))
+    print("lost:" + str(lost))
+    print("won:" + str(won))
+    print("draw:" + str(draw))
     # update tensorboard
     sess.run(summary_ops[0], feed_dict = {summary_placeholders[0]:float(mean_rewards)})
     result = sess.run(summaries)
     writer.add_summary(result, i_episode)
+
+    lost = 0
+    draw = 0
+    won = 0
+    cheated = 0
+
     # save checkpoint
     saver.save(sess, "model/saved_network")
