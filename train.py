@@ -10,11 +10,11 @@ env = Game()
 # initialize tensorflow
 sess = tf.Session()
 optimizer = tf.train.RMSPropOptimizer(learning_rate=0.0001, decay=0.9)
-writer = tf.train.SummaryWriter("logs/value_network", sess.graph)
+writer = tf.summary.FileWriter("logs/value_network", sess.graph)
 
 # prepare custom tensorboard summaries
 episode_reward = tf.Variable(0.)
-tf.scalar_summary("Last 100 Episodes Average Episode Reward", episode_reward)
+tf.summary.scalar("Last 100 Episodes Average Episode Reward", episode_reward)
 summary_vars = [episode_reward]
 summary_placeholders = [tf.placeholder("float") for i in range(len(summary_vars))]
 summary_ops = [summary_vars[i].assign(summary_placeholders[i]) for i in range(len(summary_vars))]
@@ -43,7 +43,7 @@ def value_network(states):
   p = tf.matmul(h2, Wo) + bo
   return p
 
-summaries = tf.merge_all_summaries()
+summaries = tf.summary.merge_all()
 q_network = DeepQNetwork(sess,
                          optimizer,
                          value_network,
@@ -74,9 +74,9 @@ cheated = 0
 
 # start training
 reward = 0.0
-for i_episode in xrange(training_episodes):
+for i_episode in range(training_episodes):
   state = np.array(env.reset())
-  for t in xrange(20):
+  for t in range(20):
     action = q_network.eGreedyAction(state[np.newaxis,:])
     next_state, reward, done = env.step(action)
     q_network.storeExperience(state, action, reward, next_state, done)
